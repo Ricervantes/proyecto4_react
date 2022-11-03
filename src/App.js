@@ -1,9 +1,11 @@
 import About from "./components/About";
+import Navbar from "./components/Navbar";
+
 
 function App() {
   return (
     <> 
-    <h1> proyecto de react limpio</h1>
+   <Navbar/>
    <About/>
     </>
    
