@@ -1,12 +1,12 @@
-import About from "./components/About";
-import Navbar from "./components/Navbar";
+
+import AppRouter from "./routers/AppRouter";
 
 
 function App() {
   return (
     <> 
-   <Navbar/>
-   <About/>
+   <AppRouter/>
+   
     </>
    
   );
