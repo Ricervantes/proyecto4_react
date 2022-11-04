@@ -9,7 +9,9 @@ const Homepage = () => {
             <h1 className="w3-xxlarge">Le Catering</h1>
           </div>
         </header>
+        
    </>
+
   );
 }
 

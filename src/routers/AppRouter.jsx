@@ -5,9 +5,12 @@ import Homepage from '../pages/Homepage';
 import About from '../components/About';
 import Menu from '../components/Menu';
 import Contacto from '../components/Contacto';
+import Footer from '../components/Footer';
+
 
 const AppRouter = () => {
     return (
+        <> 
         <Router>
             <Navbar />
             <Routes>
@@ -17,6 +20,9 @@ const AppRouter = () => {
                 <Route path="/Contacto" element={<Contacto/>}/>
             </Routes>
         </Router>
+        <Footer/>
+        </>
+       
     )
 }
 
