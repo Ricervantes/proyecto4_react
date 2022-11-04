@@ -39,7 +39,7 @@ const updateClientes = async (id) => {
 }
 
 const deleteClientes = async (id) => {
-    const coleccion = doc(db, 'clientes', id)
+    const coleccion = doc(db, 'clientes ', id)
     await deleteDoc(coleccion)
     await getClientes()
 }
