@@ -1,27 +1,149 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import {db} from '../firebase/firebase'
+import { collection, getDoc, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
-
-const Contacto = () => {
-    return (
-        <>
-            {/* Contact Section */}
-            <div className="w3-container w3-padding-64" id="contact">
-                <h1>Contact</h1><br />
-                <p>We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste. Do not hesitate to contact us.</p>
-                <p className="w3-text-blue-grey w3-large"><b>Catering Service, 42nd Living St, 43043 New York, NY</b></p>
-                <p>You can also contact us by phone 00553123-2323 or email catering@catering.com, or you can send us a message here:</p>
-                <form action="/action_page.php" target="_blank">
-                    <p><input className="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name" /></p>
-                    <p><input className="w3-input w3-padding-16" type="number" placeholder="How many people" required name="People" /></p>
-                    <p><input className="w3-input w3-padding-16" type="datetime-local" placeholder="Date and time" required name="date" defaultValue="2020-11-16T20:00" /></p>
-                    <p><input className="w3-input w3-padding-16" type="text" placeholder="Message \ Special requirements" required name="Message" /></p>
-                    <p><button className="w3-button w3-light-grey w3-section" type="submit">SEND MESSAGE</button></p>
-                </form>
-            </div>
-            {/* End page content */}
-
-        </>
-    )
+const initialForm = {
+  nombre: '',
+   reservacion: ''
 }
 
-export default Contacto
+const Contacto = () => {
+
+  const [clientes, setClientes]  = useState([]);
+  const [form, setForm] = useState(initialForm);
+
+  const getClientes  = async () => {
+    const respuesta = await getDocs(collection(db, 'clientes '));
+    const clientes  = respuesta.docs.map(doc => ({id: doc.id, ...doc.data()}));
+    setClientes (clientes);
+    console.log(clientes );
+}
+
+const createClientes = async () => {
+    const coleccion = collection(db, 'clientes ');
+    await addDoc(coleccion, form);
+    await getClientes ();
+}
+
+const updateClientes = async (id) => {
+    /* Colocamos los datos del campo y lo llevamos al formulario */
+    const coleccion = collection(db, 'clientes ');
+    const clientes = await getDoc(doc(coleccion, id));
+    console.log(clientes.data());
+    setForm(clientes.data())
+
+    /* Actualizamos los datos del formulario */
+    await updateDoc(doc(coleccion, id), form);
+    await getClientes ();
+
+}
+
+const deleteClientes = async (id) => {
+    const coleccion = doc(db, 'clientes', id)
+    await deleteDoc(coleccion)
+    await getClientes()
+}
+
+useEffect(() => {
+  getClientes()
+}, [])
+
+  return (
+    <>
+        < div className = "container mt-2" > <h2>Reservacion</h2>
+        <hr/>
+        <div className="row">
+            <div className="col-4">
+                <h3>Ingresa tus datos</h3>
+                <form>
+                    <input
+                    id="nombre"
+                    type="text"
+                    placeholder="Nombre"
+                    autoComplete="off"
+                    className="form-control"
+                    value={form.nombre}
+                    onChange={(e) => {
+                      setForm({ ...form, nombre: e.target.value });
+                    }}
+                  />
+                    <input
+                    id="reservacion"
+                    type="text"
+                    placeholder="reservacion"
+                    autoComplete="off"
+                    className="form-control"
+                    value={form.reservacion}
+                    onChange={(e) => {
+                        setForm({ ...form, reservacion: e.target.value });
+                    }}
+                    />
+
+                    <button
+                    className="btn btn-primary btn-block mt-2"
+                    onClick={async (e) => {
+                        e.preventDefault();
+                        await createClientes();
+                        setForm(initialForm);
+                    }}
+                    >
+                    Agregar
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div className="col-8">
+            <h3>Lista de clientes</h3>
+            <ul className="list-group">
+                {clientes.map((clientes) => (
+                    <li className="list-group-item" key={clientes.id}>
+                        {clientes.nombre} {clientes.reservacion} 
+                        <button
+                        className="btn btn-danger btn-sm float-end"
+                        onClick={() => deleteClientes(clientes.id)}
+                        >
+                        Eliminar
+                        </button>
+                        <button
+                        className="btn btn-warning btn-sm float-end"
+                        onClick={() => updateClientes(clientes.id)}
+                        >
+                        Editar
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+</>
+  )
+}
+
+export default  Contacto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
