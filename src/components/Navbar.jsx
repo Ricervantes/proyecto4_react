@@ -12,25 +12,25 @@ const Navbar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" aria-current="page"to="/Homepage">Homepage</NavLink>
-                            </li>
+                            
                             <li className="nav-item">
                                 <NavLink className="nav-link"to="/About">About</NavLink>
                             </li>
+                            
                             <li className="nav-item dropdown">
                                 <NavLink className="nav-link dropdown-toggle"to="/Menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Menu
                                 </NavLink>
                                 <ul className="dropdown-menu">
-                                    <li><NavLink className="dropdown-item"to="/Menu">Carne</NavLink></li>
-                                    <li><NavLink className="dropdown-item"to="/Menu">Pollo</NavLink></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><NavLink className="dropdown-item"to="/Menu">Mariscos</NavLink></li>
+                                    <li><NavLink className="dropdown-item"to="/Menu">Menu</NavLink></li>
+                                    
                                 </ul>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link"to="/Contacto">Reservacion</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link"to="/Reservaciones">Reservaciones</NavLink>
                             </li>
                         </ul>
                         <form className="d-flex" role="search">

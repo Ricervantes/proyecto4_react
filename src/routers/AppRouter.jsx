@@ -6,6 +6,7 @@ import About from '../components/About';
 import Menu from '../components/Menu';
 import Contacto from '../components/Contacto';
 import Footer from '../components/Footer';
+import Reservaciones from '../components/Reservaciones';
 
 
 const AppRouter = () => {
@@ -16,6 +17,7 @@ const AppRouter = () => {
             <Routes>
                 <Route path="/" element={<Homepage/>} />
                 <Route path="/About" element={<About/>} />
+                <Route path="/Reservaciones" element={<Reservaciones/>} />
                 <Route path="/Menu" element={<Menu/>}/>
                 <Route path="/Contacto" element={<Contacto/>}/>
             </Routes>

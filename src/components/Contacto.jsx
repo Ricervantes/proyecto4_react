@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {db} from '../firebase/firebase'
-import { collection, getDoc, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getDoc, getDocs, addDoc, doc, updateDoc, /*deleteDoc*/ } from 'firebase/firestore'
 
 const initialForm = {
   nombre: '',
@@ -9,7 +9,7 @@ const initialForm = {
 
 const Contacto = () => {
 
-  const [clientes, setClientes]  = useState([]);
+  const [/*clientes*/, setClientes]  = useState([]);
   const [form, setForm] = useState(initialForm);
 
   const getClientes  = async () => {
@@ -38,11 +38,11 @@ const updateClientes = async (id) => {
 
 }
 
-const deleteClientes = async (id) => {
+/*const deleteClientes = async (id) => {
     const coleccion = doc(db, 'clientes ', id)
     await deleteDoc(coleccion)
     await getClientes()
-}
+}*/
 
 useEffect(() => {
   getClientes()
@@ -69,7 +69,7 @@ useEffect(() => {
                   />
                     <input
                     id="reservacion"
-                    type="text"
+                    type="datetime-local"
                     placeholder="reservacion"
                     autoComplete="off"
                     className="form-control"
@@ -92,28 +92,7 @@ useEffect(() => {
                 </form>
             </div>
         </div>
-        <div className="col-8">
-            <h3>Lista de clientes</h3>
-            <ul className="list-group">
-                {clientes.map((clientes) => (
-                    <li className="list-group-item" key={clientes.id}>
-                        {clientes.nombre} {clientes.reservacion} 
-                        <button
-                        className="btn btn-danger btn-sm float-end"
-                        onClick={() => deleteClientes(clientes.id)}
-                        >
-                        Eliminar
-                        </button>
-                        <button
-                        className="btn btn-warning btn-sm float-end"
-                        onClick={() => updateClientes(clientes.id)}
-                        >
-                        Editar
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+       
     </div>
 </>
   )
