@@ -60,11 +60,11 @@ function  Reservaciones(){
                     <td>{dato.nombre}</td>
                     <td>{dato.reservacion}</td>
                     <td>
-                        {new Date(dato.fecha_reservacion).toLocaleDateString("es-MX")}
+                        {new Date(dato.reservacion).toLocaleDateString("es-MX")}
                     </td>
                     <td className="text-center">
-                        <button type="button" class="btn btn-danger" onClick={() => eliminar(dato.id)}>Eliminar</button>
-                        <Link class="btn btn-primary ms-2" to={`/Contacto/${dato.id}`}>Editar</Link>
+                        <button type="button" className="btn btn-danger" onClick={() => eliminar(dato.id)}>Eliminar</button>
+                        <Link className="btn btn-primary ms-2" to={`/Contacto/${dato.id}`}>Editar</Link>
                     </td>
                 </tr>
             ))}
